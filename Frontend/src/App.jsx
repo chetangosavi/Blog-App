@@ -1,24 +1,35 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Blog from "./pages/Blog";
+import Auth from "./pages/Auth";
+import { useState } from "react";
 
 const App = () => {
+  const [isAuthenticated] = useState(true);
+
   return (
-    <>
     <div className="flex flex-col">
-    <Navbar />
+      {isAuthenticated && <Navbar />}
+      
       <div className="w-4/5 m-auto mt-8 flex flex-col">
-      <Routes>
-        <Route path="/home" element={<Home/>}/>
-        <Route path="/blog/:id" element={<Blog/>
-        }/>
-      </Routes>
-        
+        <Routes>
+          {/* Public Route: Auth Page */}
+          <Route path="/" element={isAuthenticated ? <Navigate to="/home" /> : <Auth />} />
+
+          {/* Protected Routes (Only for Authenticated Users) */}
+          {isAuthenticated ? (
+            <>
+              <Route path="/home" element={<Home />} />
+              <Route path="/blog/:id" element={<Blog />} />
+            </>
+          ) : (
+            // Redirect unauthenticated users
+            <Route path="*" element={<Navigate to="/" />} />
+          )}
+        </Routes>
       </div>
     </div>
-      
-    </>
   );
 };
 

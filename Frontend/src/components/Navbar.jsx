@@ -1,6 +1,4 @@
-import { IoSearchOutline, IoCartOutline } from "react-icons/io5";
-import Modal from "./modal/Modal";
-import BlogForm from "./BlogForm";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
     
@@ -8,8 +6,11 @@ const Navbar = () => {
     <div className=" shadow-md bg-white py-4">
       <div className="w-4/5 m-auto flex justify-between items-center">
         {/* Logo */}
-        <div className="font-extrabold text-3xl uppercase tracking-wide ">
+        <Link to='/home'><div className="font-extrabold text-3xl uppercase tracking-wide cursor-pointer ">
         TechTales.
+        </div></Link>
+        <div>
+          <button className="bg-[#074D51]  py-2 px-5 text-white cursor-pointer">Logout</button>
         </div>
       </div>
     </div>
