@@ -48,3 +48,14 @@ export const login = async (req,res)=>{
         return res.status(500).json({ message: "Internal Server Error" });
     }
 }
+
+export const me = async (req,res)=>{
+    try {
+        const user = await User.findOne({_id:req.user.id}).select("-password")
+        console.log(user)
+        return res.status(200).json({message:"User Found",user})
+    } catch (error) {
+        console.error(error,"Error Findig User.")
+        return res.status(500).json({message:"Server Error, Fetching user"})
+    }
+}

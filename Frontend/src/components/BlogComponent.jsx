@@ -20,7 +20,6 @@ const BlogComponent = ({ id, title, description }) => {
           Authorization: `Bearer ${token}`
         }
       });
-      console.log(response)
       alert(response.data.message);
       setBlogsData(blogsData.filter((blog)=>blog._id !== id))
     } catch (error) {

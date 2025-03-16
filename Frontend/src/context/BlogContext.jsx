@@ -7,11 +7,11 @@ export const BlogContext = createContext(null);
 export const BlogContextProvider = ({children})=>{
     const [blogsData,setBlogsData] = useState([])
     const token = localStorage.getItem('token')
-    console.log(token)
+    // console.log(token)
 
     const fetchBlogs = async ()=>{
 
-        const token = localStorage.getItem('token')
+        // const token = localStorage.getItem('token')
         if(!token){
             console.log("Your not logged in Login to see blogs");
             return;
@@ -29,12 +29,12 @@ export const BlogContextProvider = ({children})=>{
         }
     }
 
-    console.log(blogsData)
+    // console.log(blogsData)
 
     const addBlogs = async (formData,setOpen) =>{
         try {
             const token = localStorage.getItem("token");
-            console.log(token)
+            // console.log(token)
             const response = await axios.post(
               "http://localhost:8000/api/blog/create",
               formData,
@@ -45,7 +45,7 @@ export const BlogContextProvider = ({children})=>{
                 },
               }
             );
-            console.log(response);
+            // console.log(response);
             alert(response.data.message);
             setOpen(false);
             fetchBlogs();

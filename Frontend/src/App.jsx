@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import Blog from "./pages/Blog";
 import Auth from "./pages/Auth";
 import { useAuth } from "./context/AuthContext";
+import UserProfile from "./pages/UserProfile";
 
 const App = () => {
   const {isAuthenticated} = useAuth();
@@ -22,6 +23,7 @@ const App = () => {
             <>
               <Route path="/home" element={<Home />} />
               <Route path="/blog/:id" element={<Blog />} />
+              <Route path="/profile" element={<UserProfile/>}/>
             </>
           ) : (
             // Redirect unauthenticated users
