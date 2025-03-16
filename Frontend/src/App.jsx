@@ -3,10 +3,10 @@ import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Blog from "./pages/Blog";
 import Auth from "./pages/Auth";
-import { useState } from "react";
+import { useAuth } from "./context/AuthContext";
 
 const App = () => {
-  const [isAuthenticated] = useState(true);
+  const {isAuthenticated} = useAuth();
 
   return (
     <div className="flex flex-col">

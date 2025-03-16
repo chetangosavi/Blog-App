@@ -1,6 +1,7 @@
 import express from 'express'
 import dbConnect from './src/config/dbConnect.js';
 import dotenv from 'dotenv'
+import cors from 'cors'
 dotenv.config();
 
 dbConnect();
@@ -8,6 +9,7 @@ dbConnect();
 const app = express()
 
 app.use(express.json())
+app.use(cors())
 
 // Routes
 import indexRoutes from './src/routes/Index.Routes.js'

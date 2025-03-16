@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Modal from "./ui/Modal";
+import BlogForm from "./BlogForm";
 
 const Searchbar = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -22,34 +23,7 @@ const Searchbar = () => {
         </button>
       </div>
       <Modal open={modalOpen} setOpen={setModalOpen}>
-        <div className="">
-          <h2 className="text-xl font-bold text-gray-800 mb-4">
-            Create New Blog
-          </h2>
-          <form className="space-y-4">
-            <input
-              type="text"
-              name="title"
-              id="title"
-              placeholder="Enter Title"
-              className="w-full px-4 py-2 border focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-            <input
-              type="text"
-              name="description"
-              id="description"
-              placeholder="Enter Description"
-              className="w-full px-4 py-2 border focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-
-            <button
-              type="submit"
-              className="px-4 py-2 bg-[#074D51] text-white hover:bg-blue-700 w-full"
-            >
-              Submit
-            </button>
-          </form>
-        </div>
+        <BlogForm setOpen={setModalOpen}/>
       </Modal>
     </div>
   );

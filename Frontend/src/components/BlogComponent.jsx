@@ -1,21 +1,31 @@
 import { MdOutlineExpandMore } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
-import { BlogContext } from "../context/BlogContext";
+import axios from 'axios'
 import { useContext } from "react";
+import { BlogContext } from "../context/BlogContext";
 
 const BlogComponent = ({ id, title, description }) => {
   const Navigate = useNavigate();
 
   const {blogsData,setBlogsData} = useContext(BlogContext)
-
   const handleOnClick = () => {
     Navigate(`/blog/${id}`);
   };
 
-  const handleRemove = ()=>{
-    const updatedBlogs = blogsData.filter((elm,idx)=>idx!=id);
-    setBlogsData(updatedBlogs); 
-    localStorage.setItem("blogsData", JSON.stringify(updatedBlogs)); 
+  const handleRemove = async()=>{
+    try {
+      const token = localStorage.getItem('token')
+      const response  = await axios.delete(`http://localhost:8000/api/blog/delete/${id}`,{
+        headers:{
+          Authorization: `Bearer ${token}`
+        }
+      });
+      console.log(response)
+      alert(response.data.message);
+      setBlogsData(blogsData.filter((blog)=>blog._id !== id))
+    } catch (error) {
+      console.log(error,"Error Deleting Blog!")
+    }
   }
 
   return (
@@ -30,7 +40,7 @@ const BlogComponent = ({ id, title, description }) => {
         </button>
         <MdOutlineExpandMore />
       </div>
-      <div className="absolute top-4 right-4 bg-gray-200 rounded-full w-5 h-5 flex items-center justify-center cursor-pointer hover:bg-gray-300"
+      <div className="w-5 h-5 absolute top-4 right-4 bg-gray-200 rounded-full flex items-center justify-center cursor-pointer hover:bg-gray-300"
       onClick={handleRemove}>
         &times;
       </div>

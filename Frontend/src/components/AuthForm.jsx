@@ -1,8 +1,39 @@
 import { useState } from "react";
+import axios from 'axios';
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+
 
 const AuthForm = () => {
   const [isLogin, setIsLogin] = useState(true);
+  const [formData,setFormData] = useState({ name:'',email:'',password:''})
+  const {login} = useAuth()
 
+  const navigate = useNavigate()
+
+  const onChange = (e) =>{
+    setFormData({...formData,[e.target.name]:e.target.value})
+  }
+  const handleOnSubmit = async (e)=>{
+    e.preventDefault();
+    console.log(formData)
+    try {
+      if(isLogin){
+        const res = await axios.post('http://localhost:8000/api/auth/login',{
+          name:formData.name,
+          email:formData.email,
+          password:formData.password
+        });
+        console.log(res);
+
+        login(res.data.token)
+        alert(res.data.message)
+        navigate('/home')
+      }
+    } catch (error) {
+      console.log({error:error.message})
+    }
+  }
   return (
     <div className="h-screen flex flex-col items-center justify-center">
       <div className="bg-white p-8 shadow-xl w-96">
@@ -10,21 +41,30 @@ const AuthForm = () => {
           {isLogin ? "Login" : "Sign Up"}
         </h2>
 
-        <form className="mt-6 space-y-4">
+        <form className="mt-6 space-y-4" onSubmit={handleOnSubmit}>
           {!isLogin && (
             <input
               type="text"
+              name="name"
+              value={formData.name}
+              onChange={onChange}
               placeholder="Full Name"
               className="w-full px-4 py-2 border  focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           )}
           <input
             type="email"
+            name="email"
+            value={formData.email}
+            onChange={onChange}
             placeholder="Email"
             className="w-full px-4 py-2 border  focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           <input
             type="password"
+            name="password"
+            value={formData.password}
+            onChange={onChange}
             placeholder="Password"
             className="w-full px-4 py-2 border focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
