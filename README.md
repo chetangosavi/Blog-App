@@ -19,3 +19,52 @@ To run this project locally, follow these steps:
 
    ```bash
    git clone https://github.com/chetangosavi/Blog-App.git
+
+2. **Navigate to the project directory:
+
+   ```bash
+   cd Blog-App
+
+3. **Install dependencies for the backend:
+
+   ```bash
+   cd Backend
+   npm install
+   
+4. **Install dependencies for the frontend:
+
+   ```bash
+   cd ../Frontend
+   npm install
+   
+5. **Set up environment variables:
+   - **Create a .env file in the Backend directory.
+   - **Add the necessary environment variables (e.g., database connection strings, secret keys).
+
+6. **Start the backend server:
+
+      ```bash
+      cd ../Backend
+      npm start
+
+7. **Start the frontend application:
+
+      ```bash
+      cd ../Frontend
+      npm start
+
+
+8. **The application should now be running locally.
+
+Usage
+- Signup/Login: Register a new account or log in with existing credentials.
+- Create Blog: Use the editor to compose and publish new blog posts.
+- Search Blogs: Utilize the search bar to find specific posts.
+- User Profiles: Access and manage your profile information.
+
+
+License
+This project is licensed under the MIT License.
+
+
+
