@@ -11,6 +11,18 @@ Blog-App is a full-stack web application developed using the MERN (MongoDB, Expr
 - **Search Functionality**: Quickly find blogs using the integrated search feature.
 - **User Profiles**: View and manage user-specific profiles.
 
+## Screenshots
+![login](Frontend/src/assets/BLOG-FULLSTACK_login.png)
+
+![dashboard](Frontend/src/assets/BLOG-FULLSTACK_Dashboard.png)
+
+![modal](Frontend/src/assets/Blog_Application_modal.png)
+
+![search](Frontend/src/assets/BLOG-FULLSTACK_search.png)
+
+![profile](Frontend/src/assets/BLOG-FULLSTACK_profile.png)
+
+
 ## Installation
 
 To run this project locally, follow these steps:
