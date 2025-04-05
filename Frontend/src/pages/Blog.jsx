@@ -20,7 +20,7 @@ const Blog = () => {
 
   return (
     <div className="">
-      <div className="w-full shadow-lg p-10">
+      <div className="w-full shadow-lg p-10 mt-20">
         <h1 className="text-2xl font-bold">{blog.title}</h1>
         <hr className="mt-2 mb-5"/>
         <p className="text-sm text-justify">

@@ -5,6 +5,7 @@ import Blog from "./pages/Blog";
 import Auth from "./pages/Auth";
 import { useAuth } from "./context/AuthContext";
 import UserProfile from "./pages/UserProfile";
+import { ToastContainer } from "react-toastify";
 
 const App = () => {
   const {isAuthenticated} = useAuth();
@@ -31,6 +32,7 @@ const App = () => {
           )}
         </Routes>
       </div>
+      <ToastContainer position="bottom-right" autoClose={3000} />
     </div>
   );
 };

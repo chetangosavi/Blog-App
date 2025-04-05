@@ -3,8 +3,9 @@ import { useNavigate } from "react-router-dom";
 import axios from 'axios'
 import { useContext } from "react";
 import { BlogContext } from "../context/BlogContext";
+import { toast } from "react-toastify";
 
-const BlogComponent = ({ id, title, description }) => {
+const BlogComponent = ({ id, title, description,name }) => {
   const Navigate = useNavigate();
 
   const {blogsData,setBlogsData} = useContext(BlogContext)
@@ -20,10 +21,11 @@ const BlogComponent = ({ id, title, description }) => {
           Authorization: `Bearer ${token}`
         }
       });
-      alert(response.data.message);
+      toast.success(response.data.message);
       setBlogsData(blogsData.filter((blog)=>blog._id !== id))
     } catch (error) {
       console.log(error,"Error Deleting Blog!")
+      toast.error(error.message)
     }
   }
 
@@ -32,6 +34,7 @@ const BlogComponent = ({ id, title, description }) => {
       <div className="w-[90%]">
         <h1 className="font-bold text-xl">{title}</h1>
         <p className="text-sm text-gray-400">{description}</p>
+        <p className="text-sm mt-2">Author, <span className="uppercase">{name}</span></p>
       </div>
       <div className="flex gap-2 justify-center items-center w-[10%]">
         <button className="text-sm" onClick={handleOnClick}>

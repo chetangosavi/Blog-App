@@ -26,9 +26,9 @@ const UserProfile = () => {
   }, []);
 
   return (
-    <div className="flex flex-col justify-center items-center shadow-lg">
-      <div className="p-5 flex flex-col justify-center items-center">
-        <div className="flex gap-3 text-2xl">
+    <div className="flex flex-col justify-center items-center shadow-lg mt-20 p-10">
+      <div className="flex flex-col justify-center items-center">
+        <div className="flex justify-center items-center gap-2 text-2xl">
           <FaRegCircleUser  className="cursor-pointer" />
           <h1 className="uppercase font-bold">{user.name}</h1>
         </div>

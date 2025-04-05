@@ -2,6 +2,7 @@
 /* eslint-disable react-refresh/only-export-components */
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 export const BlogContext = createContext(null);
 
@@ -10,7 +11,7 @@ export const BlogContextProvider = ({children})=>{
     const token = localStorage.getItem('token')
     // console.log(token)
 
-    const fetchBlogs = async ()=>{
+    async function fetchBlogs(search){
 
         // const token = localStorage.getItem('token')
         if(!token){
@@ -18,8 +19,12 @@ export const BlogContextProvider = ({children})=>{
             return;
         }
 
+        if(search == undefined){
+            search = " "
+        }
+
         try {
-            const response = await axios.get('http://localhost:8000/api/blog/all',{
+            const response = await axios.get(`http://localhost:8000/api/blog/all?search=${search}`,{
                 headers:{
                     Authorization: `Bearer ${token}`
                 }
@@ -47,7 +52,7 @@ export const BlogContextProvider = ({children})=>{
               }
             );
             // console.log(response);
-            alert(response.data.message);
+            toast.success(response.data.message);
             setOpen(false);
             fetchBlogs();
 
@@ -57,11 +62,11 @@ export const BlogContextProvider = ({children})=>{
     }
 
     useEffect(()=>{
-        fetchBlogs();
+         fetchBlogs();
     },[])
 
 return (
-    <BlogContext.Provider value={{blogsData, setBlogsData,addBlogs}}>
+    <BlogContext.Provider value={{blogsData, setBlogsData,addBlogs,fetchBlogs}}>
         {children}
     </BlogContext.Provider>
 )

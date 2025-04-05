@@ -20,7 +20,16 @@ export const create = async (req, res) => {
 
 export const getAllBlogs = async (req, res) => {
   try {
-    const blogs = await Blog.find();
+    let search = req.query.search || " "
+
+    const blogs = await Blog.find({
+      $or:[
+        {title:{$regex:search,$options:"i"}},
+        {content:{$regex:search,$options:"i"}}
+      ]
+    }).populate('user');
+
+    console.log(search);
 
     if (blogs.length === 0) {
       return res.status(404).json({ message: "No blogs found" });
@@ -36,25 +45,21 @@ export const getAllBlogs = async (req, res) => {
 };
 
 
-
 export const deleteBlog = async (req, res) => {
   try {
     const { id } = req.params;
+    const userId = req.user.id;
 
-    const blogToDelete = await Blog.findByIdAndDelete(id);
+    const blogToDelete = await Blog.findOneAndDelete({ _id: id, user: userId });
 
     if (!blogToDelete) {
-      return res
-        .status(400)
-        .json({ message: "Error Deleting Blog or Blog Not Found" });
+      return res.status(403).json({ message: "Blog not found or unauthorized to delete" });
     }
 
-    return res
-      .status(200)
-      .json({ message: "Blog Deleted Successfully", blogToDelete });
+    return res.status(200).json({ message: "Blog deleted successfully" });
   } catch (error) {
-    return res
-      .status(500)
-      .json({ message: "Error Deleting Blog!", error: error.message });
+    console.error("Error Deleting Blog:", error.message);
+    return res.status(500).json({ message: "Error deleting blog", error: error.message });
   }
 };
+

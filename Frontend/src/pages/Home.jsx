@@ -23,6 +23,7 @@ const Home = () => {
                 id={elm._id}
                 title={elm.title}
                 description={elm.description}
+                name={elm.user.name}
               />
             ))}
           </div>

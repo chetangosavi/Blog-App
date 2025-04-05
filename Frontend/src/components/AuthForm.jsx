@@ -1,39 +1,56 @@
 import { useState } from "react";
-import axios from 'axios';
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-
+import { toast } from "react-toastify";
 
 const AuthForm = () => {
   const [isLogin, setIsLogin] = useState(true);
-  const [formData,setFormData] = useState({ name:'',email:'',password:''})
-  const {login} = useAuth()
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+  const { login } = useAuth();
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  const onChange = (e) =>{
-    setFormData({...formData,[e.target.name]:e.target.value})
-  }
-  const handleOnSubmit = async (e)=>{
+  const onChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+  const handleOnSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData)
+    console.log(formData);
     try {
-      if(isLogin){
-        const res = await axios.post('http://localhost:8000/api/auth/login',{
-          name:formData.name,
-          email:formData.email,
-          password:formData.password
+      if (isLogin) {
+        const res = await axios.post("http://localhost:8000/api/auth/login", {
+          email: formData.email,
+          password: formData.password,
         });
         console.log(res);
 
-        login(res.data.token)
-        alert(res.data.message)
-        navigate('/home')
+        toast.success(res.data.message);
+        login(res.data.token);
+
+        navigate("/home");
+      } else {
+        const res = await axios.post(
+          "http://localhost:8000/api/auth/register",
+          {
+            name: formData.name,
+            email: formData.email,
+            password: formData.password,
+          }
+        );
+        console.log(res);
+        toast.success("Registration Successful! Please login.");
+        navigate("/login");
       }
     } catch (error) {
-      console.log({error:error.message})
+      console.log({ error: error.message });
+      toast.error(error.response?.data?.message || "Something went wrong!");
     }
-  }
+  };
   return (
     <div className="h-screen flex flex-col items-center justify-center">
       <div className="bg-white p-8 shadow-xl w-96">

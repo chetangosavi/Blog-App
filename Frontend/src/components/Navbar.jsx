@@ -9,7 +9,7 @@ const Navbar = () => {
     logout();
   };
   return (
-    <div className=" shadow-md bg-white py-4">
+    <div className="fixed w-full shadow-md bg-white py-4 z-50">
       <div className="w-4/5 m-auto flex justify-between items-center">
         {/* Logo */}
         <Link to="/home">
